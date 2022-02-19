@@ -1,9 +1,83 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginData } from '../actions';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  inputHandler = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  };
+
+  routeWallet = () => {
+    const { email } = this.state;
+    const { history, sendUserData } = this.props;
+
+    sendUserData(email);
+    history.push('/carteira');
+  }
+
   render() {
-    return <div>Login</div>;
+    //  Button Check
+    let button;
+    const { email, password } = this.state;
+    const { routeWallet } = this;
+    const emailValidation = email.includes('@') && email.includes('.com');
+    const passwordMaxLength = 6;
+
+    if (emailValidation && password.length >= passwordMaxLength) {
+      button = <button type="button" onClick={ routeWallet }> Entrar </button>;
+    } else {
+      button = <button type="button" onClick={ routeWallet } disabled> Entrar </button>;
+    }
+
+    return (
+      <section>
+
+        <label htmlFor="email">
+          Email:
+          <input
+            type="email"
+            name="email"
+            data-testid="email-input"
+            onChange={ this.inputHandler }
+          />
+        </label>
+
+        <label htmlFor="password">
+          Password:
+          <input
+            type="email"
+            name="password"
+            data-testid="password-input"
+            onChange={ this.inputHandler }
+          />
+        </label>
+
+        {button}
+
+      </section>
+    );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  sendUserData: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  sendUserData: (value) => dispatch(loginData(value)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
