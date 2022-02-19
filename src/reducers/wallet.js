@@ -1,9 +1,9 @@
 const INITIAL_STATE = {
-    currencies: [],
-    expenses: []
+  currencies: [],
+  expenses: [],
 };
 
-export const wallet= (state = INITIAL_STATE, action) => {
+export const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   default:
     return state;

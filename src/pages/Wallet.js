@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Table from '../components/Tabel';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -32,7 +32,6 @@ class Wallet extends React.Component {
               type="text"
               name="value"
               data-testid="value-input"
-              onChange={this.inputHandler}
             />
           </label>
 
@@ -42,7 +41,6 @@ class Wallet extends React.Component {
               type="text"
               name="description"
               data-testid="description-input"
-              onChange={this.inputHandler}
             />
           </label>
 
@@ -52,7 +50,6 @@ class Wallet extends React.Component {
               type="text"
               name="currency"
               data-testid="currency-input"
-              onChange={this.inputHandler}
             />
           </label>
 
@@ -62,7 +59,6 @@ class Wallet extends React.Component {
               type="text"
               name="method"
               data-testid="method-input"
-              onChange={this.inputHandler}
             />
           </label>
 
@@ -76,16 +72,14 @@ class Wallet extends React.Component {
               <option>Saúde</option>
             </select>
           </label>
-
-          <button type="button">Adicionar despesa</button>;
-
+          <button type="button">Adicionar despesa</button>
         </form>
-
         <Table />
       </div>
     );
   }
 }
+
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
 };
