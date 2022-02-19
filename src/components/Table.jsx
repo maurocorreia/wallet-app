@@ -18,8 +18,8 @@ class Table extends React.Component {
           </tr>
         </thead>
       </table>
-    )
-  };
-};
+    );
+  }
+}
 
 export default Table;
