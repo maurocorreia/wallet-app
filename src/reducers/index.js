@@ -1,22 +1,7 @@
-import { LOGIN_DATA } from '../actions';
+import { combineReducers } from "redux";
+import user from "./user";
+import wallet from "./wallet";
 
-const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
-};
+const rootReducer = combineReducers({user, wallet})
 
-export const reducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-  case LOGIN_DATA:
-    return { ...state, user: { email: action.payload.email } };
-  default:
-    return state;
-  }
-};
-
-export default reducer;
+export default rootReducer;
