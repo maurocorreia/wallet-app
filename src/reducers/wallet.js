@@ -1,4 +1,4 @@
-import { DELETE_DATA, WALLET_DATA } from '../actions';
+import { DELETE_DATA, ITEM_EDIT, UPDATE_LIST, WALLET_DATA } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -13,6 +13,19 @@ export const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.filter((expense) => expense !== action.expenseUnit),
+    };
+  case ITEM_EDIT:
+    return { ...state, itemOnHold: action.item };
+  case UPDATE_LIST:
+    return {
+      ...state,
+      itemOnHold: undefined,
+      expenses: state.expenses.map((expense) => {
+        if (expense.id === action.update.id) {
+          return action.update;
+        }
+        return expense;
+      }),
     };
   default:
     return state;

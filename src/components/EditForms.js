@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { walletData } from '../actions';
+import { updateList } from '../actions';
 
-class Forms extends React.Component {
+class EditForms extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -18,14 +18,21 @@ class Forms extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchCoins().then((result) => this.setState({ exchangeRates: result }));
+    this.setValues();
   }
 
-  fetchCoins = async () => {
-    const url = 'https://economia.awesomeapi.com.br/json/all';
-    const api = await fetch(url);
-    const apiJSON = await api.json();
-    return apiJSON;
+  setValues = () => {
+    const {
+      itemOnHold: {
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates,
+      } } = this.props;
+
+    this.setState({ value, description, currency, method, tag, exchangeRates });
   }
 
   handleChange = ({ target }) => {
@@ -35,17 +42,9 @@ class Forms extends React.Component {
     });
   }
 
-  sendData = () => {
-    const { sendWalletData } = this.props;
-    sendWalletData(this.state);
-    this.setState({ value: 0 });
-    this.setState((prevState) => ({ id: prevState.id + 1 }));
-  }
-
-  prepareData = () => {
-    this.fetchCoins().then(() => {
-      this.sendData();
-    });
+  sendUpdate = () => {
+    const { listUpdate } = this.props;
+    listUpdate(this.state);
   }
 
   render() {
@@ -133,18 +132,30 @@ class Forms extends React.Component {
           </select>
         </label>
 
-        <button type="button" onClick={ this.prepareData }>Adicionar despesa</button>
+        <button type="button" onClick={ this.sendUpdate }>Editar despesa</button>
       </form>
     );
   }
 }
-
-Forms.propTypes = {
-  sendWalletData: PropTypes.func.isRequired,
+EditForms.propTypes = {
+  itemOnHold: PropTypes.shape({
+    value: PropTypes.number,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRates: PropTypes.objectOf(PropTypes.object),
+    id: PropTypes.string,
+  }).isRequired,
+  listUpdate: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  sendWalletData: (currience) => dispatch(walletData(currience)),
+const mapStateToProps = (state) => ({
+  itemOnHold: state.wallet.itemOnHold,
 });
 
-export default connect(null, mapDispatchToProps)(Forms);
+const mapDispatchToProps = (dispatch) => ({
+  listUpdate: (item) => dispatch(updateList(item)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditForms);
