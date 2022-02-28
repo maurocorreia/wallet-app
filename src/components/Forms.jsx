@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { walletData } from '../actions';
 
@@ -37,7 +38,7 @@ class Forms extends React.Component {
   sendData = () => {
     const { sendWalletData } = this.props;
     sendWalletData(this.state);
-    this.setState( { value: 0 } );
+    this.setState({ value: 0 });
     this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
@@ -93,7 +94,9 @@ class Forms extends React.Component {
             data-testid="currency-input"
             value={ currency }
           >
-            { coinsFiltered.map((aux) => (<option value={aux} key={aux}>{ aux }</option>)) }
+            { coinsFiltered.map((aux) => (
+            <option value={ aux } key={ aux }>{ aux }</option>)
+            ) }
           </select>
         </label>
 
@@ -130,11 +133,15 @@ class Forms extends React.Component {
           </select>
         </label>
 
-        <button type="button" onClick={this.prepareData}>Adicionar despesa</button>
+        <button type="button" onClick={ this.prepareData }>Adicionar despesa</button>
       </form>
     );
   }
 }
+
+Forms.propTypes = {
+  sendWalletData: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   sendWalletData: (currience) => dispatch(walletData(currience)),
