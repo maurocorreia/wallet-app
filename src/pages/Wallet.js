@@ -13,9 +13,8 @@ class Wallet extends React.Component {
       expenses.map((aux) => {
         const askValue = Number(aux.exchangeRates[aux.currency].ask) * Number(aux.value);
         totalValue += askValue;
-        return null;
+        return totalValue;
       });
-      return null;
     }
 
     return (

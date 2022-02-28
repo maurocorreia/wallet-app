@@ -17,24 +17,25 @@ class Forms extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.fetchCoins();
-  }
-
+  
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
       [name]: value,
     });
   }
-
+  
   fetchCoins = async () => {
     const url = 'https://economia.awesomeapi.com.br/json/all';
     const api = await fetch(url);
     const apiJSON = await api.json();
     this.setState({ exchangeRates: apiJSON });
   }
-
+  
+  componentDidMount() {
+    this.fetchCoins();
+  }
+  
   sendData = () => {
     const { sendWalletData } = this.props;
     sendWalletData(this.state);
