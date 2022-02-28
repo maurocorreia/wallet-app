@@ -13,11 +13,11 @@ class Forms extends React.Component {
       tag: '',
       id: 0,
       exchangeRates: {},
-    }
+    };
   }
-  
-  componentDidMount(){
-    this.fetchCoins()
+
+  componentDidMount() {
+    this.fetchCoins();
   }
 
   handleChange = ({ target }) => {
@@ -28,20 +28,21 @@ class Forms extends React.Component {
   }
 
   fetchCoins = async () => {
-    const url = 'https://economia.awesomeapi.com.br/json/all'
-    const api = await fetch(url)
+    const url = 'https://economia.awesomeapi.com.br/json/all';
+    const api = await fetch(url);
     const apiJSON = await api.json();
     this.setState({ exchangeRates: apiJSON });
   }
 
-  sendData = () => {    
-    this.props.sendWalletData(this.state);
-    this.setState({value: 0})
+  sendData = () => {
+    const { sendWalletData } = this.props;
+    sendWalletData(this.state);
+    this.setState( { value: 0 } );
     this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
   prepareData = () => {
-    this.fetchCoins().then(() =>{
+    this.fetchCoins().then(() => {
       this.sendData();
     });
   }
@@ -67,7 +68,7 @@ class Forms extends React.Component {
             type="text"
             name="value"
             data-testid="value-input"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             value={ value }
           />
         </label>
@@ -78,7 +79,7 @@ class Forms extends React.Component {
             type="text"
             name="description"
             data-testid="description-input"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             value={ description }
           />
         </label>
@@ -92,7 +93,7 @@ class Forms extends React.Component {
             data-testid="currency-input"
             value={ currency }
           >
-            {coinsFiltered.map((aux) => (<option value={aux} key={aux}>{aux}</option>))}
+            { coinsFiltered.map((aux) => (<option value={aux} key={aux}>{ aux }</option>)) }
           </select>
         </label>
 
@@ -102,9 +103,9 @@ class Forms extends React.Component {
             name="method"
             id="method"
             data-testid="method-input"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             value={ method }
-          > 
+          >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -116,7 +117,7 @@ class Forms extends React.Component {
           <select
             name="tag"
             data-testid="tag-input"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             id="tag"
             value={ tag }
           >
@@ -131,14 +132,12 @@ class Forms extends React.Component {
 
         <button type="button" onClick={this.prepareData}>Adicionar despesa</button>
       </form>
-    )
+    );
   }
 }
 
-
-
 const mapDispatchToProps = (dispatch) => ({
-  sendWalletData: (currience) => dispatch(walletData(currience))
+  sendWalletData: (currience) => dispatch(walletData(currience)),
 });
 
 export default connect(null, mapDispatchToProps)(Forms);
