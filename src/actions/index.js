@@ -1,9 +1,13 @@
 // ACTION TYPES.
 export const LOGIN_DATA = 'LOGIN_DATA';
+export const WALLET_DATA = 'WALLET_DATA';
 
 export const loginData = (email) => ({
   type: LOGIN_DATA,
-  payload: {
-    email,
-  },
+  email,
+});
+
+export const walletData = (data) => ({
+  type: WALLET_DATA,
+  expenses: data,
 });

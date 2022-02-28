@@ -4,13 +4,13 @@ const INITIAL_STATE = {
   email: '',
 };
 
-export const user = (state = INITIAL_STATE, action) => {
+export const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN_DATA:
-    return { ...state, email: action.payload.email };
+    return { ...state, email: action.email };
   default:
     return state;
   }
 };
 
-export default user;
+export default userReducer;

@@ -17,7 +17,7 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   };
 
-  routeWallet = () => {
+  sendWallet = () => {
     const { email } = this.state;
     const { history, sendUserData } = this.props;
 
@@ -27,16 +27,22 @@ class Login extends React.Component {
 
   render() {
     //  Button Check
-    let button;
+    let loginButton;
     const { email, password } = this.state;
-    const { routeWallet } = this;
+    const { sendWallet } = this;
     const emailValidation = email.includes('@') && email.includes('.com');
     const passwordMaxLength = 6;
 
     if (emailValidation && password.length >= passwordMaxLength) {
-      button = <button type="button" onClick={ routeWallet }> Entrar </button>;
+      loginButton = (
+        <button type="button" onClick={ sendWallet }>
+          Entrar
+        </button>);
     } else {
-      button = <button type="button" onClick={ routeWallet } disabled> Entrar </button>;
+      loginButton = (
+        <button type="button" onClick={ sendWallet } disabled>
+          Entrar
+        </button>);
     }
 
     return (
@@ -62,7 +68,7 @@ class Login extends React.Component {
           />
         </label>
 
-        {button}
+        {loginButton}
 
       </section>
     );
