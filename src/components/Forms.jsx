@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { walletData } from '../actions';
 
@@ -95,8 +95,8 @@ class Forms extends React.Component {
             value={ currency }
           >
             { coinsFiltered.map((aux) => (
-            <option value={ aux } key={ aux }>{ aux }</option>)
-            ) }
+              <option value={ aux } key={ aux }>{ aux }</option>
+            ))}
           </select>
         </label>
 
