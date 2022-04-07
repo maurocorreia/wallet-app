@@ -1,14 +1,12 @@
 <div align="center">
-  <h1> 🦁 Wallet App </h1>
+  <h1> 💵 Wallet App </h1>
 </div>
 
-Lions Recipes is a recipe app where you can check how to do your favorite meals and drinks. You can browse by categories, ingredients, and even nationality. This application was made by a team of four and built to serve as my finishing project for my front-end course at Trybe. Our app has features like favoriting and sharing the recipe, a profile section with done, and favorite recipes.
-
+Wallet App is a wallet application where you can simulate transactions with real-time currency prices. You can choose a different currency to buy, a quantity, method of payment, and more. This app will record all your transactions and allows you to edit your data afterward.
+<br>
 <br>
 
-<br>
-
-# Skills
+## Skills
 This project was made with:
 
   ⚛️ React
