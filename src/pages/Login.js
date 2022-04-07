@@ -19,31 +19,17 @@ class Login extends React.Component {
 
   sendWallet = () => {
     const { email } = this.state;
-    const { history, sendUserData } = this.props;
+    const { history, dispatch } = this.props;
 
-    sendUserData(email);
+    dispatch(loginData(email));
     history.push('/carteira');
   }
 
   render() {
     //  Button Check
-    let loginButton;
     const { email, password } = this.state;
-    const { sendWallet } = this;
     const emailValidation = email.includes('@') && email.includes('.com');
     const passwordMaxLength = 6;
-
-    if (emailValidation && password.length >= passwordMaxLength) {
-      loginButton = (
-        <button type="button" onClick={ sendWallet }>
-          Entrar
-        </button>);
-    } else {
-      loginButton = (
-        <button type="button" onClick={ sendWallet } disabled>
-          Entrar
-        </button>);
-    }
 
     return (
       <section>
@@ -68,7 +54,13 @@ class Login extends React.Component {
           />
         </label>
 
-        {loginButton}
+        <button
+          disabled={ !(emailValidation && password.length >= passwordMaxLength) }
+          type="button"
+          onClick={ this.sendWallet }
+        >
+          Entrar
+        </button>
 
       </section>
     );
@@ -76,14 +68,10 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  sendUserData: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  sendUserData: (value) => dispatch(loginData(value)),
-});
-
-export default connect(null, mapDispatchToProps)(Login);
+export default connect()(Login);

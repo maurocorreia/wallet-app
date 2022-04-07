@@ -9,21 +9,18 @@ class Wallet extends React.Component {
   render() {
     const { expenses, email, itemOnHold } = this.props;
 
-    let totalValue = 0;
-    if (expenses.length > 0) {
-      expenses.map((aux) => {
-        const askValue = Number(aux.exchangeRates[aux.currency].ask) * Number(aux.value);
-        totalValue += askValue;
-        return totalValue;
-      });
-    }
+    const totalValue = expenses.reduce((valueCounter, expense) => {
+      const singleValue = Number(expense
+        .exchangeRates[expense.currency].ask) * Number(expense.value);
+      return singleValue + valueCounter;
+    }, 0);
 
     return (
       <div>
         <nav>
           <h2 data-testid="email-field">
             Email:
-            {email}
+            {email || 'Not found'}
           </h2>
           <h2 data-testid="total-field">
             Valor total:
